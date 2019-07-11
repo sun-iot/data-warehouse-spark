@@ -1,6 +1,8 @@
 package com.sun.bigdata.etl
 
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Date
 
 import org.apache.spark.SparkConf
@@ -49,7 +51,8 @@ object DataMemberETL {
             val tupleName: (String, String) = data.fullname.splitAt(1)
             data.fullname = tupleName._1 + "XX"
             // 日期格式化操作
-            val time: String = new SimpleDateFormat("yyyyMMdd").format(new Date())
+            //val time: String = new SimpleDateFormat("yyyyMMdd").format(new Date())
+            val time: String = DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDate.now())
             MemberSql(data.uid, data.ad_id, data.birthday, data.email, data.fullname, data.iconurl, data.lastlogin, data.mailaddr, data.memberlevel, data.password, data.paymoney, data.phone, data.qq, data.register, data.regupdatetime, data.unitname, data.userip, data.zipcode, time, data.dn)
           }
         }
